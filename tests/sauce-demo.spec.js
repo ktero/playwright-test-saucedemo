@@ -34,9 +34,8 @@ test.describe('Checkout items', () => {
 
     test('Checkout one item', async ({ page }) => {
 
-        const ITEM = ITEMS[0];
-
-        await page.locator('.inventory_item').filter({ hasText: ITEM }).getByRole('button', { name: 'Add to cart' }).click();
+        const ITEM = [ITEMS[0]];
+        addItemsToCart(page, ITEM);
         await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
         await page.locator('.shopping_cart_link').click();
         
@@ -71,9 +70,7 @@ test.describe('Checkout items', () => {
     test('Checkout multiple items', async ({ page }) => {
 
         // Add the 3 items to cart
-        for(const item of ITEMS) {
-            await page.locator('.inventory_item').filter({ hasText: item }).getByRole('button', { name: 'Add to cart' }).click();
-        }
+        addItemsToCart(page, ITEMS);
         await expect(page.locator('.shopping_cart_badge')).toHaveText('3');
         await page.locator('.shopping_cart_link').click();
 
@@ -113,9 +110,7 @@ test.describe('Checkout items', () => {
     test('Add 3 items to cart but only checkout 2', async ({ page }) => {
 
         // Add the 3 items to cart
-        for(const item of ITEMS) {
-            await page.locator('.inventory_item').filter({ hasText: item }).getByRole('button', { name: 'Add to cart' }).click();
-        }
+        addItemsToCart(page, ITEMS);
         await expect(page.locator('.shopping_cart_badge')).toHaveText('3');
         await page.locator('.shopping_cart_link').click();
 
@@ -160,3 +155,9 @@ test.describe('Checkout items', () => {
         await expect(page.locator('.title')).toHaveText('Products');
     });
 });
+
+async function addItemsToCart(page, ITEMS_TO_ADD) {
+    for(const item of ITEMS_TO_ADD) {
+        await page.locator('.inventory_item').filter({ hasText: item }).getByRole('button', { name: 'Add to cart' }).click();
+    }
+}
