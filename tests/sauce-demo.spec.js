@@ -60,7 +60,7 @@ test.describe('Checkout items', () => {
 
         await expect(page).toHaveURL(/.*checkout-complete.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Complete!');
-        await expect(page.locator('.complete-header')).toHaveText('THANK YOU FOR YOUR ORDER');
+        await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
         await page.locator('#back-to-products').click();
 
         await expect(page).toHaveURL(/.*inventory.html/);
@@ -96,7 +96,7 @@ test.describe('Checkout items', () => {
 
         await expect(page).toHaveURL(/.*checkout-complete.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Complete!');
-        await expect(page.locator('.complete-header')).toHaveText('THANK YOU FOR YOUR ORDER');
+        await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
         await page.locator('#back-to-products').click();
 
         await expect(page).toHaveURL(/.*inventory.html/);
@@ -138,7 +138,7 @@ test.describe('Checkout items', () => {
 
         await expect(page).toHaveURL(/.*checkout-complete.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Complete!');
-        await expect(page.locator('.complete-header')).toHaveText('THANK YOU FOR YOUR ORDER');
+        await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
         await page.locator('#back-to-products').click();
 
         await expect(page).toHaveURL(/.*inventory.html/);
