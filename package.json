@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pw:test": "playwright test",
-    "pw:test-chromium": "npx playwright test --project=chromium",
+    "pw:run": "playwright run",
+    "pw:run-chromium": "npx playwright test --project=chromium",
     "pw:show-report": "playwright show-report"
   },
   "keywords": [],
