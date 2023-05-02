@@ -3,8 +3,11 @@
 ### Purpose
 I do not own SauceDemo. Website is owned by Sauce Labs. I am only using the website to practice and apply my knowledge on automation tools/frameworks.
 
-### End-to-end tests
+### Tests
 Test Set: Checkout items
-- Test 1: Checkout one item
-- Test 2: Checkout multiple items
-- Test 3: Add 3 items to cart but only checkout 2
+| Test #      | Test description                            |
+| :---        | :---                                        |
+| 1           | Checkout one item                           |
+| 2           | Checkout multiple items                     |
+| 3           | Add 3 items to cart but only checkout 2     |
+| 4           | Checkout items with no information provided |
