@@ -7,9 +7,10 @@ test.beforeEach(async ({ page }) => {
         USERNAME: 'standard_user',
         PASSWORD: 'secret_sauce'
     };
-    const fieldUsername = page.locator('#user-name');
-    const fieldPassword = page.locator('#password');
-    const buttonSubmit  = page.getByText('LOGIN');
+
+    const fieldUsername = page.locator('[data-test="username"]')
+    const fieldPassword = page.locator('[data-test="password"]');
+    const buttonSubmit  = page.locator('[data-test="login-button"]');
 
     await fieldUsername.fill(USER.USERNAME);
     await fieldPassword.fill(USER.PASSWORD);
@@ -26,7 +27,7 @@ const ITEMS = [
     'Test.allTheThings() T-Shirt (Red)'
 ];
 
-test.describe('Checkout items', () => {
+test.describe('Saucedemo Web App', () => {
 
     const checkoutFirstName = 'John';
     const checkoutLastName  = 'Doe'
@@ -143,6 +144,23 @@ test.describe('Checkout items', () => {
 
         await expect(page).toHaveURL(/.*inventory.html/);
         await expect(page.locator('.title')).toHaveText('Products');
+    });
+
+    test('Test 4: Checkout items with no information provided', async ({ page }) => {
+
+        await page.locator('[data-test=add-to-cart-sauce-labs-backpack]').click();
+        await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+        await page.locator('.shopping_cart_link').click();
+
+        await expect(page).toHaveURL(/.*cart.html/);
+        await expect(page.locator('.title')).toHaveText('Your Cart');
+        await expect(page.locator('.cart_item')).toHaveCount(1);
+
+        await page.locator('[data-test=checkout]').click();
+        await expect(page).toHaveURL(/.*checkout-step-one.html/);
+        await expect(page.locator('.title')).toHaveText('Checkout: Your Information');
+        await page.locator('[data-test=continue]').click();
+        await expect(page.locator('[data-test=error]')).toHaveText('Error: First Name is required');
     });
 });
 
