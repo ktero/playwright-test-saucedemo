@@ -11,3 +11,4 @@ Test Set: Checkout items
 | 2           | Checkout multiple items                     |
 | 3           | Add 3 items to cart but only checkout 2     |
 | 4           | Checkout items with no information provided |
+| 5           | Add item through product page               |
