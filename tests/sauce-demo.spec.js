@@ -176,6 +176,41 @@ test.describe('Saucedemo Web App', () => {
         await expect(page.locator('.title')).toHaveText('Your Cart');
         await expect(page.locator('.cart_item')).toHaveCount(1);
     });
+
+    test('Test 6: Sort product items', async ({page}) => {
+        
+        // Verify Sort by Name (A-Z)
+        await page.selectOption('[data-test=product_sort_container]', 'az');
+        const productNames = await page.$$eval('.inventory_item_name', (elements) => 
+            elements.map((element) => element.textContent)
+        );
+        const sortedProductNames = [...productNames].sort();
+        expect(productNames).toEqual(sortedProductNames);
+
+        // Verify Sort by Name (Z-A)
+        await page.selectOption('[data-test=product_sort_container]', 'za');
+        const productNamesReverse = await page.$$eval('.inventory_item_name', (elements) => 
+            elements.map((element) => element.textContent)
+        );
+        const sortedProductNamesReverse = [...productNamesReverse].sort().reverse();
+        expect(productNamesReverse).toEqual(sortedProductNamesReverse);
+
+        // Verify Sort by Price (low to high)
+        await page.selectOption('[data-test=product_sort_container]', 'lohi');
+        const productPrice = await page.$$eval('.inventory_item_price', (elements) => 
+            elements.map((element) => element.textContent)
+        );
+        const sortedProductPrice = [...productPrice].sort((a, b) => parseFloat(a.substring(1)) - parseFloat(b.substring(1)));
+        expect(productPrice).toEqual(sortedProductPrice);
+
+        // Verify Sort by Price (high to low)
+        await page.selectOption('[data-test=product_sort_container]', 'hilo');
+        const productPriceReverse = await page.$$eval('.inventory_item_price', (elements) => 
+            elements.map((element) => element.textContent)
+        );
+        const sortedProductPriceReverse = [...productPriceReverse].sort((a, b) => parseFloat(a.substring(1)) - parseFloat(b.substring(1))).reverse();
+        expect(productPriceReverse).toEqual(sortedProductPriceReverse);
+    });
 });
 
 async function addItemsToCart(page, ITEMS_TO_ADD) {
