@@ -162,6 +162,20 @@ test.describe('Saucedemo Web App', () => {
         await page.locator('[data-test=continue]').click();
         await expect(page.locator('[data-test=error]')).toHaveText('Error: First Name is required');
     });
+
+    test('Test 5: Add item through product page', async ({page}) => {
+        
+        await page.locator('.inventory_item_name').filter({hasText: 'Sauce Labs Backpack'}).click();
+        await page.locator('[data-test=add-to-cart-sauce-labs-backpack]').click();
+        await expect(page.locator('[data-test=remove-sauce-labs-backpack]')).toHaveText('Remove');
+
+        await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+        await page.locator('.shopping_cart_link').click();
+
+        await expect(page).toHaveURL(/.*cart.html/);
+        await expect(page.locator('.title')).toHaveText('Your Cart');
+        await expect(page.locator('.cart_item')).toHaveCount(1);
+    });
 });
 
 async function addItemsToCart(page, ITEMS_TO_ADD) {
