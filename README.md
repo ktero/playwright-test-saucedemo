@@ -12,3 +12,4 @@ I do not own SauceDemo. Website is owned by Sauce Labs. I am only using the webs
 | 4           | Checkout items with no information provided |
 | 5           | Add item through product page               |
 | 6           | Sort product items                          |
+| 7           | Navigate to About page                      |
