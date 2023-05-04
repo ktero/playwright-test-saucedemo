@@ -211,6 +211,14 @@ test.describe('Saucedemo Web App', () => {
         const sortedProductPriceReverse = [...productPriceReverse].sort((a, b) => parseFloat(a.substring(1)) - parseFloat(b.substring(1))).reverse();
         expect(productPriceReverse).toEqual(sortedProductPriceReverse);
     });
+
+    test('Test 6: Navigate to About page', async ({page}) => {
+        await page.locator('#react-burger-menu-btn').click();
+        await page.locator('#about_sidebar_link').click();
+        await expect(page).toHaveURL(/.*saucelabs.com/);
+
+        await page.screenshot({ path: './test-results/about-page-screenshot.png' });
+    });
 });
 
 async function addItemsToCart(page, ITEMS_TO_ADD) {
