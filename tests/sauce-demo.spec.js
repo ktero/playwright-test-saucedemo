@@ -44,25 +44,25 @@ test.describe('Saucedemo Web App', () => {
         await expect(page.locator('.title')).toHaveText('Your Cart');
         await expect(page.locator('.cart_item')).toHaveCount(1);
         checkIfItemsExistInList(page, ITEM);
-        await page.locator('#checkout').click();
+        await page.locator('[data-test=checkout]').click();
         
         await expect(page).toHaveURL(/.*checkout-step-one.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Your Information');
-        await page.getByPlaceholder('First Name').fill(checkoutFirstName);
-        await page.getByPlaceholder('Last Name').fill(checkoutLastName);
-        await page.getByPlaceholder('Zip/Postal Code').fill(postalCode);
-        await page.locator('#continue').click();
+        await page.locator('[data-test=firstName]').fill(checkoutFirstName);
+        await page.locator('[data-test=lastName]').fill(checkoutLastName);
+        await page.locator('[data-test=postalCode]').fill(postalCode);
+        await page.locator('[data-test=continue]').click();
 
         await expect(page).toHaveURL(/.*checkout-step-two.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Overview');
         await expect(page.locator('.cart_item')).toHaveCount(1);
         checkIfItemsExistInList(page, ITEM);
-        await page.locator('#finish').click();
+        await page.locator('[data-test=finish]').click();
 
         await expect(page).toHaveURL(/.*checkout-complete.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Complete!');
         await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
-        await page.locator('#back-to-products').click();
+        await page.locator('[data-test=back-to-products]').click();
 
         await expect(page).toHaveURL(/.*inventory.html/);
         await expect(page.locator('.title')).toHaveText('Products');
@@ -80,25 +80,25 @@ test.describe('Saucedemo Web App', () => {
         await expect(page.locator('.cart_item')).toHaveCount(3);
 
         checkIfItemsExistInList(page, ITEMS);
-        await page.locator('#checkout').click();
+        await page.locator('[data-test=checkout]').click();
 
         await expect(page).toHaveURL(/.*checkout-step-one.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Your Information');
-        await page.getByPlaceholder('First Name').fill(checkoutFirstName);
-        await page.getByPlaceholder('Last Name').fill(checkoutLastName);
-        await page.getByPlaceholder('Zip/Postal Code').fill(postalCode);
-        await page.locator('#continue').click();
+        await page.locator('[data-test=firstName]').fill(checkoutFirstName);
+        await page.locator('[data-test=lastName]').fill(checkoutLastName);
+        await page.locator('[data-test=postalCode]').fill(postalCode);
+        await page.locator('[data-test=continue]').click();
 
         await expect(page).toHaveURL(/.*checkout-step-two.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Overview');
         await expect(page.locator('.cart_item')).toHaveCount(3);
         checkIfItemsExistInList(page, ITEMS);
-        await page.locator('#finish').click();
+        await page.locator('[data-test=finish]').click();
 
         await expect(page).toHaveURL(/.*checkout-complete.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Complete!');
         await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
-        await page.locator('#back-to-products').click();
+        await page.locator('[data-test=back-to-products]').click();
 
         await expect(page).toHaveURL(/.*inventory.html/);
         await expect(page.locator('.title')).toHaveText('Products');
@@ -122,25 +122,25 @@ test.describe('Saucedemo Web App', () => {
 
         const modified_items = ITEMS.filter((e) => { return e != ITEMS[1] });
         checkIfItemsExistInList(page, modified_items);
-        await page.locator('#checkout').click();
+        await page.locator('[data-test=checkout]').click();
 
         await expect(page).toHaveURL(/.*checkout-step-one.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Your Information');
-        await page.getByPlaceholder('First Name').fill(checkoutFirstName);
-        await page.getByPlaceholder('Last Name').fill(checkoutLastName);
-        await page.getByPlaceholder('Zip/Postal Code').fill(postalCode);
-        await page.locator('#continue').click();
+        await page.locator('[data-test=firstName]').fill(checkoutFirstName);
+        await page.locator('[data-test=lastName]').fill(checkoutLastName);
+        await page.locator('[data-test=postalCode]').fill(postalCode);
+        await page.locator('[data-test=continue]').click();
 
         await expect(page).toHaveURL(/.*checkout-step-two.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Overview');
         await expect(page.locator('.cart_item')).toHaveCount(2);
         checkIfItemsExistInList(page, modified_items);
-        await page.locator('#finish').click();
+        await page.locator('[data-test=finish]').click();
 
         await expect(page).toHaveURL(/.*checkout-complete.html/);
         await expect(page.locator('.title')).toHaveText('Checkout: Complete!');
         await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
-        await page.locator('#back-to-products').click();
+        await page.locator('[data-test=back-to-products]').click();
 
         await expect(page).toHaveURL(/.*inventory.html/);
         await expect(page.locator('.title')).toHaveText('Products');
@@ -212,12 +212,20 @@ test.describe('Saucedemo Web App', () => {
         expect(productPriceReverse).toEqual(sortedProductPriceReverse);
     });
 
-    test('Test 6: Navigate to About page', async ({page}) => {
+    test('Test 7: Navigate to About page', async ({page}) => {
         await page.locator('#react-burger-menu-btn').click();
         await page.locator('#about_sidebar_link').click();
         await expect(page).toHaveURL(/.*saucelabs.com/);
 
         await page.screenshot({ path: './test-results/about-page-screenshot.png' });
+    });
+
+    test('Test 8: Logout from application', async ({page}) => {
+        await page.locator('#react-burger-menu-btn').click();
+        await page.locator('#logout_sidebar_link').click();
+        await expect(page).toHaveURL(/.*saucedemo.com/);
+
+        await page.screenshot({ path: './test-results/after-logout-screenshot.png' });
     });
 });
 
