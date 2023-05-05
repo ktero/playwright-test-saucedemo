@@ -13,3 +13,4 @@ I do not own SauceDemo. Website is owned by Sauce Labs. I am only using the webs
 | 5           | Add item through product page               |
 | 6           | Sort product items                          |
 | 7           | Navigate to About page                      |
+| 8           | Logout from application                     |
