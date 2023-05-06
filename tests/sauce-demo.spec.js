@@ -232,6 +232,7 @@ test.describe('Saucedemo Web App', () => {
 async function addItemsToCart(page, ITEMS_TO_ADD) {
     for(const item of ITEMS_TO_ADD) {
         await page.locator('.inventory_item').filter({ hasText: item }).getByRole('button', { name: 'Add to cart' }).click();
+        await expect(page.locator('.inventory_item').filter({ hasText: item }).getByRole('button')).toHaveText('Remove');
     }
 }
 
