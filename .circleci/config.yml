@@ -10,10 +10,9 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
-
       - run:
-        name: Run playwright tests
-        command: npx playwright test
+          name: Run playwright tests
+          command: npx playwright test
 
 workflows:
   build:
