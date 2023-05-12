@@ -18,6 +18,9 @@ jobs:
           name: Install dependencies
           command: npm ci
       - run:
+          name: Install playwright browsers
+          command: npx playwright install
+      - run:
           name: Run playwright tests in Chromium
           command: npx playwright test --project=chromium
       - run:
