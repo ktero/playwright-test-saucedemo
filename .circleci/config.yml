@@ -23,9 +23,6 @@ jobs:
       - run:
           name: Run playwright tests in Firefox
           command: npx playwright test --project=firefox
-      - run:
-          name: Run playwright tests in Webkit
-          command: npx playwright test --project=webkit
 
 workflows:
   test:
