@@ -1,20 +1,32 @@
 version: 2.1
 
-jobs:
-  build:
-    working_directory: ~/repo
+executors:
+  node-executor:
     docker:
-      - image: circleci/node:14.17.0-browsers
+      - image: circleci/node:14-browsers
+    working_directory: ~/repo
+    shell: /bin/bash
+    environment:
+      NODE_ENV: test
+
+jobs:
+  test:
     steps:
       - checkout
       - run:
           name: Install dependencies
-          command: npm install
+          command: npm ci
       - run:
-          name: Run playwright tests
-          command: npx playwright test
+          name: Run playwright tests in Chromium
+          command: npx playwright test --project=chromium
+      - run:
+          name: Run playwright tests in Firefox
+          command: npx playwright test --project=firefox
+      - run:
+          name: Run playwright tests in Webkit
+          command: npx playwright test --project=webkit
 
 workflows:
-  build:
+  test:
     jobs:
-      - build
+      - test
