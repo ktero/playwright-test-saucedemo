@@ -11,6 +11,7 @@ executors:
 
 jobs:
   test:
+    executor: node-executor
     steps:
       - checkout
       - run:
