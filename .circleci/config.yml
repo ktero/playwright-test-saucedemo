@@ -1,0 +1,21 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:14.17.0-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+
+      - run:
+        name: Run playwright tests
+        command: npx playwright test
+
+workflows:
+  build:
+    jobs:
+      - build
